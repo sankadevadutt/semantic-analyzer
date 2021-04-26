@@ -8,7 +8,7 @@ public class main {
 	//validation of variable name
 	static boolean validate_var(String s)
 	{
-		Pattern p = Pattern.compile("^[_a-zA-Z][0-9a-zA-Z]*");
+		Pattern p = Pattern.compile("^[_a-zA-Z][0-9a-zA-Z_]*");
 		Matcher m = p.matcher(s);
 		return m.find();
 	}
@@ -23,7 +23,7 @@ public class main {
 		Pattern p2 = Pattern.compile("\\d+\\.\\d+$");
 		Matcher m2 = p2.matcher(s);
 		
-		Pattern p3 = Pattern.compile("'[\\w\\d]'$");
+		Pattern p3 = Pattern.compile("'[\\w\\d]?'$");
 		Matcher m3 = p3.matcher(s);
 		
 
@@ -66,7 +66,7 @@ public class main {
 		int val;
 		str = scan.nextLine();
 		if(str.equals("start"))
-		{
+		{ 
 			while(true)
 			{
 				str = scan.nextLine();
@@ -78,16 +78,13 @@ public class main {
 					//identifier can't be a keyword
 					if(Keywords.contains(var))
 					{
-						System.err.println("INVALID!!variable name should not match with reserved keywords ");
-						break;
+						System.err.println("Invalid!! variable name should not match with reserved keywords ");
 					}else if(!validate_var(var))  // valid identifier name 
 					{
-						System.err.println("INVALID!!variable name");
-						break;
+						System.err.println("Invalid variable name");
 					}else if(var_data.containsKey(var)) //validation of multiple identifier declaration 
 					{
-						System.err.println("INVALID!!Multiple var_dataaration of variable : "+var);
-						break;
+						System.err.println("Invalid!! Multiple var_dataaration of variable : "+var);
 					}else if(splitarray[2].equals("=")){ //initialization during declaration
 						if(Arrays.toString(splitarray).contains("+"))  // expression
 						{	
@@ -100,17 +97,14 @@ public class main {
 							if(Keywords.contains(operat[0]) || Keywords.contains(operat[1])  )
 							{
 								System.err.println("Invalid expression!! operands should not match with reserved keywords ");
-								break;
 							}else if(var_data.containsKey(operat[0]) && var_data.containsKey(operat[1]))
 							{
 								if(var_val.get(operat[0]).equals("not initialized"))
 								{
 									System.err.println("Variable "+operat[0]+ " is not initialized");
-									break;
 								}else if(var_val.get(operat[1]).equals("not initialized"))
 								{
 									System.err.println("Variable "+operat[1]+ " is not initialized");
-									break;
 								}else {
 									op1 = var_data.get(operat[0]);
 									op2 = var_data.get(operat[1]);
@@ -125,7 +119,6 @@ public class main {
 								if(var_val.get(operat[0]).equals("not initialized"))
 								{
 									System.err.println("Variable "+operat[0]+ " is not initialized");
-									break;
 								}else {
 									op2 = retdata(operat[1]);
 									op1 = var_data.get(operat[0]);
@@ -137,8 +130,7 @@ public class main {
 							{
 								if(var_val.get(operat[1]).equals("not initialized"))
 								{
-									System.err.println("Variable "+operat[0]+ " is not initialized");
-									break;
+									System.err.println("Variable "+operat[1]+ " is not initialized");
 								}else {
 									op2 = var_data.get(operat[1]);
 									operat[1] = var_val.get(operat[1]);
@@ -149,11 +141,9 @@ public class main {
 							}else if(validate_var(operat[0]))
 							{
 								System.err.println("Variable "+operat[0]+ " is not declared");
-								break;
 							}else if(validate_var(operat[1]))
 							{
 								System.err.println("Variable "+operat[1]+ " is not declared");
-								break;
 							}else {
 								op1 = retdata(operat[0]);
 								isvar1=false;
@@ -445,17 +435,14 @@ public class main {
 							if(Keywords.contains(operat[0]) || Keywords.contains(operat[1])  )
 							{
 								System.err.println("Invalid expression!! operands should not match with reserved keywords ");
-								break;
 							}else if(var_data.containsKey(operat[0]) && var_data.containsKey(operat[1]))
 							{
 								if(var_val.get(operat[0]).equals("not initialized"))
 								{
 									System.err.println("Variable "+operat[0]+ " is not initialized");
-									break;
 								}else if(var_val.get(operat[1]).equals("not initialized"))
 								{
 									System.err.println("Variable "+operat[1]+ " is not initialized");
-									break;
 								}else {
 									op1 = var_data.get(operat[0]);
 									op2 = var_data.get(operat[1]);
@@ -470,7 +457,6 @@ public class main {
 								if(var_val.get(operat[0]).equals("not initialized"))
 								{
 									System.err.println("Variable "+operat[0]+ " is not initialized");
-									break;
 								}else {
 									op2 = retdata(operat[1]);
 									op1 = var_data.get(operat[0]);
@@ -482,8 +468,7 @@ public class main {
 							{
 								if(var_val.get(operat[1]).equals("not initialized"))
 								{
-									System.err.println("Variable "+operat[0]+ " is not initialized");
-									break;
+									System.err.println("Variable "+operat[1]+ " is not initialized");
 								}else {
 									op2 = var_data.get(operat[1]);
 									operat[1] = var_val.get(operat[1]);
@@ -494,11 +479,9 @@ public class main {
 							}else if(validate_var(operat[0]))
 							{
 								System.err.println("Variable "+operat[0]+ " is not declared");
-								break;
 							}else if(validate_var(operat[1]))
 							{
 								System.err.println("Variable "+operat[1]+ " is not declared");
-								break;
 							}else {
 								op1 = retdata(operat[0]);
 								isvar1=false;
@@ -1152,7 +1135,6 @@ public class main {
 							if(var_val.get(var2).equals("not initialized"))  //var2 not initialized
 							{
 								System.err.println("Variable "+var2+" is not initialized");
-								break;
 							}else {
 								switch(datatype)
 								{
@@ -1239,10 +1221,8 @@ public class main {
 						}else if(Keywords.contains(splitarray[3]))
 						{
 							System.err.println("Variable cannot be initialized with keyword");
-							break;
 						}else if (validate_var(splitarray[3])) {
 							System.err.println("Variable "+splitarray[3]+" not declared");
-							break;
 						}else {
 							returneddata = retdata(splitarray[3]);
 							switch(datatype)
@@ -1362,6 +1342,8 @@ public class main {
 							var_data.put(var, datatype);
 							break;
 						}
+					}else {
+						System.err.println("Invalid declaration of variable");
 					}
 				}else if(var_data.containsKey(splitarray[0]))
 				{
@@ -1380,17 +1362,14 @@ public class main {
 						if(Keywords.contains(operat[0]) || Keywords.contains(operat[1])  )
 						{
 							System.err.println("Invalid expression!! operands should not match with reserved keywords ");
-							break;
 						}else if(var_data.containsKey(operat[0]) && var_data.containsKey(operat[1]))
 						{
 							if(var_val.get(operat[0]).equals("not initialized"))
 							{
 								System.err.println("Variable "+operat[0]+ " is not initialized");
-								break;
 							}else if(var_val.get(operat[1]).equals("not initialized"))
 							{
 								System.err.println("Variable "+operat[1]+ " is not initialized");
-								break;
 							}else {
 								op1 = var_data.get(operat[0]);
 								op2 = var_data.get(operat[1]);
@@ -1405,7 +1384,6 @@ public class main {
 							if(var_val.get(operat[0]).equals("not initialized"))
 							{
 								System.err.println("Variable "+operat[0]+ " is not initialized");
-								break;
 							}else {
 								op2 = retdata(operat[1]);
 								op1 = var_data.get(operat[0]);
@@ -1417,8 +1395,7 @@ public class main {
 						{
 							if(var_val.get(operat[1]).equals("not initialized"))
 							{
-								System.err.println("Variable "+operat[0]+ " is not initialized");
-								break;
+								System.err.println("Variable "+operat[1]+ " is not initialized");
 							}else {
 								op2 = var_data.get(operat[1]);
 								operat[1] = var_val.get(operat[1]);
@@ -1429,11 +1406,9 @@ public class main {
 						}else if(validate_var(operat[0]))
 						{
 							System.err.println("Variable "+operat[0]+ " is not declared");
-							break;
 						}else if(validate_var(operat[1]))
 						{
 							System.err.println("Variable "+operat[1]+ " is not declared");
-							break;
 						}else {
 							op1 = retdata(operat[0]);
 							isvar1=false;
@@ -1724,17 +1699,14 @@ public class main {
 							if(Keywords.contains(operat[0]) || Keywords.contains(operat[1])  )
 							{
 								System.err.println("Invalid expression!! operands should not match with reserved keywords ");
-								break;
 							}else if(var_data.containsKey(operat[0]) && var_data.containsKey(operat[1]))
 							{
 								if(var_val.get(operat[0]).equals("not initialized"))
 								{
 									System.err.println("Variable "+operat[0]+ " is not initialized");
-									break;
 								}else if(var_val.get(operat[1]).equals("not initialized"))
 								{
 									System.err.println("Variable "+operat[1]+ " is not initialized");
-									break;
 								}else {
 									op1 = var_data.get(operat[0]);
 									op2 = var_data.get(operat[1]);
@@ -1749,7 +1721,6 @@ public class main {
 								if(var_val.get(operat[0]).equals("not initialized"))
 								{
 									System.err.println("Variable "+operat[0]+ " is not initialized");
-									break;
 								}else {
 									op2 = retdata(operat[1]);
 									op1 = var_data.get(operat[0]);
@@ -1761,8 +1732,7 @@ public class main {
 							{
 								if(var_val.get(operat[1]).equals("not initialized"))
 								{
-									System.err.println("Variable "+operat[0]+ " is not initialized");
-									break;
+									System.err.println("Variable "+operat[1]+ " is not initialized");
 								}else {
 									op2 = var_data.get(operat[1]);
 									operat[1] = var_val.get(operat[1]);
@@ -1773,11 +1743,9 @@ public class main {
 							}else if(validate_var(operat[0]))
 							{
 								System.err.println("Variable "+operat[0]+ " is not declared");
-								break;
 							}else if(validate_var(operat[1]))
 							{
 								System.err.println("Variable "+operat[1]+ " is not declared");
-								break;
 							}else {
 								op1 = retdata(operat[0]);
 								isvar1=false;
@@ -2432,7 +2400,6 @@ public class main {
 							if(var_val.get(var2).equals("not initialized"))  //var2 not initialized
 							{
 								System.err.println("Variable "+var2+" is not initialized");
-								break;
 							}else {
 								switch(datatype)
 								{
@@ -2520,10 +2487,8 @@ public class main {
 						}else if(Keywords.contains(splitarray[2]))
 						{
 							System.err.println("Variable cannot be initialized with keyword");
-							break;
 						}else if (validate_var(splitarray[2])) {
 							System.err.println("Variable "+splitarray[2]+" not declared");
-							break;
 						}else {
 							returneddata = retdata(splitarray[2]);
 							switch(datatype)
@@ -2638,17 +2603,14 @@ public class main {
 					System.err.println("Keywords can't be used");
 				}else if(validate_var(splitarray[0]))
 				{
-					System.err.println("Invalid variable declaration");
+					System.err.println("Variable "+splitarray[0]+" not declared ");
 				}else
 				{
 					System.err.println("INVALID line!!");
-					break;
 				}
 			}
 		}else {
 			System.err.println("INVALID!!required start statement");
 		}
-
 	}
-
 }
